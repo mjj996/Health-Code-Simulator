@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <style>
+      body, html, div, video {
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        width: 100vw;
+      }
+      #root video {
+        width: 100%;
+        /* height: 100%; */
+        object-fit: contain;
+      }
+      #time-container {
+        position: absolute;
+        top: 42vw;
+        left: 0;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #time-container .time-string {
+        width: 60vw;
+        min-height: 15vw;
+        background-color: #fff;
+        text-align: center;
+        font-size: 8vw;
+        font-weight: 400;
+        color: #222;
+        white-space: nowrap;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" onclick="fullscreen()">
+      <video autoplay muted loop id="myVideo">
+        <source src="./111.mp4" type="video/mp4">
+      </video>
+      <div id="time-container">
+        <div class="time-string">
+          01-04 12:59:59
+        </div>
+      </div>
+    </div>
+    <script>
+      function fullscreen() {
+        document.documentElement.requestFullscreen()
+      }
+      const formatterDate = () => {
+        const zero = (newValue) => {
+          if (newValue < 10) {
+            return `0${newValue}`;
+          }
+          return newValue;
+        };
+        const date = new Date();
+        const month = zero(date.getMonth() + 1);
+        const day = zero(date.getDate());
+        const hour = zero(date.getHours());
+        const minite = zero(date.getMinutes());
+        const seconds = zero(date.getSeconds());
+        return `${month}-${day} ${hour}:${minite}:${seconds}`;
+      };
+
+      let timeoutCount = 0
+      const changeTime = () => {
+        const timeStrDiv = document.getElementsByClassName('time-string')[0]
+        timeStrDiv.innerHTML = formatterDate()
+        timeoutCount = timeoutCount + 1
+        timeoutCount < 1000 && setTimeout(changeTime, 1000)
+      }
+      window.onload = changeTime
+    </script>
+  </body>
+</html>
