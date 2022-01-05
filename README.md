@@ -1,4 +1,4 @@
-# -Simulator
+# Health-Code-Simulator
 粤康码Simulator
 
 install Simple HTTP Server_v1.6.1_apkpure.com.apk
