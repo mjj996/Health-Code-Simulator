@@ -67,24 +67,6 @@
         font-family: Arial, Helvetica, sans-serif;
       }
     </style>
-  </head>
-  <body>
-    <div id="root" onclick="fullscreen()">
-      <video autoplay muted loop id="myVideo">
-        <source src="./111.mp4" type="video/mp4">
-      </video>
-      <div id="time-container">
-        <div class="time-string">
-          01-04 12:59:59
-        </div>
-      </div>
-      <div id="vaccine-container">
-        
-        <div class="vaccine-time">
-          2022-01-04 12:59:59
-        </div>
-      </div>
-    </div>
     <script>
       function fullscreen() {
         document.documentElement.requestFullscreen()
@@ -109,19 +91,50 @@
 
       let timeoutCount = 0
       const changeTime = () => {
-        const timeStrDiv = document.getElementsByClassName('time-string')[0]
-        timeStrDiv.innerHTML = formatterDate()
+        try {
+          const timeStrDiv = document.getElementsByClassName('time-string')[0]
+          timeStrDiv.innerHTML = formatterDate()
+        } catch(err) {
+          console.log(err);
+        }
         timeoutCount = timeoutCount + 1
         timeoutCount < 1000 && setTimeout(changeTime, 1000)
       }
       const setVaccineTime = () => {
-        const timeStrDiv = document.getElementsByClassName('vaccine-time')[0]
-        timeStrDiv.innerHTML = formatterDate(true)
+        try {
+          const timeStrDiv = document.getElementsByClassName('vaccine-time')[0]
+          timeStrDiv.innerHTML = formatterDate(true)
+        } catch(err) {
+          console.log(err);
+        }
+
       }
-      window.onload = () => {
+      // window.onload = () => {
+      //   setVaccineTime();
+      //   changeTime();
+      // }
+      setTimeout(() => {
         setVaccineTime();
         changeTime();
-      }
+      }, 1);
     </script>
+  </head>
+  <body>
+    <div id="root" onclick="fullscreen()">
+      <video autoplay muted loop id="myVideo">
+        <source src="./111.mp4" type="video/mp4">
+      </video>
+      <div id="time-container">
+        <div class="time-string">
+          01-04 12:59:59
+        </div>
+      </div>
+      <div id="vaccine-container">
+        
+        <div class="vaccine-time">
+          2022-01-04 12:59:59
+        </div>
+      </div>
+    </div>
   </body>
 </html>
