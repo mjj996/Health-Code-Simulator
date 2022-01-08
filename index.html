@@ -1,3 +1,4 @@
+
 <html>
   <head>
     <style>
@@ -36,6 +37,35 @@
         white-space: nowrap;
         font-family: Arial, Helvetica, sans-serif;
       }
+      #vaccine-container {
+        position: absolute;
+        top: 128.9vw;
+        left: 6.3vw;
+        width: 41.4vw;
+        height: 29.4vw;
+        /* display: flex; */
+        /* justify-content: center; */
+        /* align-items: center; */
+        background-image: url("./vaccine.png");
+        background-size: contain;
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+      }
+      #vaccine-container .vaccine-time {
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+        min-height: 6vw;
+        bottom: 1vw;
+        left: 0;
+        background-color: transparent;
+        text-align: center;
+        font-size: 3vw;
+        font-weight: 400;
+        color: #f2f2f2;
+        white-space: nowrap;
+        font-family: Arial, Helvetica, sans-serif;
+      }
     </style>
   </head>
   <body>
@@ -48,24 +78,32 @@
           01-04 12:59:59
         </div>
       </div>
+      <div id="vaccine-container">
+        
+        <div class="vaccine-time">
+          2022-01-04 12:59:59
+        </div>
+      </div>
     </div>
     <script>
       function fullscreen() {
         document.documentElement.requestFullscreen()
       }
-      const formatterDate = () => {
-        const zero = (newValue) => {
-          if (newValue < 10) {
-            return `0${newValue}`;
-          }
-          return newValue;
-        };
+      const formatterDate = (yearFlag) => {
+        const zero = (newValue) => `0${newValue}`.slice(-2);
         const date = new Date();
         const month = zero(date.getMonth() + 1);
         const day = zero(date.getDate());
         const hour = zero(date.getHours());
         const minite = zero(date.getMinutes());
         const seconds = zero(date.getSeconds());
+        if (yearFlag) {
+          let yeardate = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+          const year = date.getFullYear()
+          const ymonth = zero(date.getMonth() + 1);
+          const yday = zero(date.getDate());
+          return `${year}-${month}-${day} 10:36:46`;
+        }
         return `${month}-${day} ${hour}:${minite}:${seconds}`;
       };
 
@@ -76,7 +114,14 @@
         timeoutCount = timeoutCount + 1
         timeoutCount < 1000 && setTimeout(changeTime, 1000)
       }
-      window.onload = changeTime
+      const setVaccineTime = () => {
+        const timeStrDiv = document.getElementsByClassName('vaccine-time')[0]
+        timeStrDiv.innerHTML = formatterDate(true)
+      }
+      window.onload = () => {
+        setVaccineTime();
+        changeTime();
+      }
     </script>
   </body>
 </html>
