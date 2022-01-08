@@ -3,7 +3,7 @@
 
 install Simple HTTP Server_v1.6.1_apkpure.com.apk
 
-copy index.html vaccine.png to your device  /emulator/0
+copy index.html  to your device  /emulator/0
 
 record 粤康码 and save as 111.mp4 to the same path
 
